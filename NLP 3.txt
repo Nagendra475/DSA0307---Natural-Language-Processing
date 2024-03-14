@@ -1,0 +1,8 @@
+import nltk
+
+sentence = "The quick brown foxes are jumping over the lazy dogs"
+
+tokens = nltk.word_tokenize(sentence)
+tagged = nltk.pos_tag(tokens)
+
+print(tagged)

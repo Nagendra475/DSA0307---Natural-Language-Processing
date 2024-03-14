@@ -1,0 +1,24 @@
+class FiniteStateAutomaton:
+    def __init__(self):
+        self.state = 0
+
+    def transition(self, input_char):
+        if self.state == 0 and input_char == 'a':
+            self.state = 1
+        elif self.state == 1 and input_char == 'b':
+            self.state = 2
+        else:
+            self.state = 0
+
+    def is_accepted(self):
+        return self.state == 2
+
+def match_ab(string):
+    fsm = FiniteStateAutomaton()
+    for char in string:
+        fsm.transition(char)
+    return fsm.is_accepted()
+
+
+print(match_ab("testab"))  
+print(match_ab("test"))    

@@ -1,0 +1,9 @@
+import re
+
+text = "The quick brown fox jumps over the lazy dog"
+
+# Match words containing 'o' followed by 'g'
+pattern = r'\b\w*o\w*g\w*\b'
+
+matches = re.findall(pattern, text)
+print(matches)
