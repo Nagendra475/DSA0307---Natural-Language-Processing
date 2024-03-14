@@ -1,0 +1,16 @@
+import nltk
+import random
+
+def stochastic_pos_tagging(sentence):
+    tagged_sentence = []
+    for word in sentence.split():
+        pos_tags = nltk.pos_tag([word])
+        if pos_tags:
+            tagged_word = (word, random.choice(pos_tags)[1])
+            tagged_sentence.append(tagged_word)
+    return tagged_sentence
+
+# Example usage:
+sentence = "The quick brown fox jumps over the lazy dog"
+tagged_sentence = stochastic_pos_tagging(sentence)
+print(tagged_sentence)

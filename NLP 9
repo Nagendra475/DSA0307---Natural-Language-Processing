@@ -1,0 +1,18 @@
+import re
+
+def rule_based_pos_tagging(sentence):
+    tagged_sentence = []
+    for word in sentence.split():
+        if re.match(r'^[A-Z][a-z]*$', word):
+            tagged_word = (word, 'NNP') 
+        elif re.match(r'^[0-9]+(\.[0-9]*)?|[0-9]*\.[0-9]+$', word):
+            tagged_word = (word, 'CD')   
+        else:
+            tagged_word = (word, 'NN')   
+        tagged_sentence.append(tagged_word)
+    return tagged_sentence
+
+# Example usage:
+sentence = "The 5 cats are chasing 3 mice"
+tagged_sentence = rule_based_pos_tagging(sentence)
+print(tagged_sentence)
