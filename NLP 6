@@ -1,0 +1,29 @@
+import random
+
+def generate_bigram_model(text):
+    words = text.split()
+    bigrams = [(words[i], words[i+1]) for i in range(len(words)-1)]
+    model = {}
+    for w1, w2 in bigrams:
+        if w1 not in model:
+            model[w1] = []
+        model[w1].append(w2)
+    return model
+
+def generate_text_from_bigram(model, length=10):
+    current_word = random.choice(list(model.keys()))
+    generated_text = [current_word]
+    for _ in range(length-1):
+        if current_word in model:
+            next_word = random.choice(model[current_word])
+            generated_text.append(next_word)
+            current_word = next_word
+        else:
+            break
+    return ' '.join(generated_text)
+
+
+text = "I like to eat pizza with cheese"
+bigram_model = generate_bigram_model(text)
+generated_text = generate_text_from_bigram(bigram_model, length=15)
+print(generated_text)

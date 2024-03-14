@@ -1,0 +1,19 @@
+import nltk
+
+rules = [
+    (r'.*ing$', 'VBG'),          # gerunds
+    (r'.*ed$', 'VBD'),           # simple past
+    (r'.*es$', 'VBZ'),           # 3rd singular present
+    (r'.*ould$', 'MD'),          # modals
+    (r'.*\'s$', 'NN$'),          # possessive nouns
+    (r'^-?[0-9]+(.[0-9]+)?$', 'CD'),  # cardinal numbers
+    (r'.*', 'NN')                # nouns (default)
+]
+
+regexp_tagger = nltk.RegexpTagger(rules)
+
+# Example usage:
+sentence = "The quick brown fox is jumping over the lazy dog"
+tokens = nltk.word_tokenize(sentence)
+tagged_sentence = regexp_tagger.tag(tokens)
+print(tagged_sentence)
