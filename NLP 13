@@ -1,0 +1,46 @@
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.children = []
+
+    def __repr__(self):
+        if self.children:
+            return f'{self.value}({", ".join(str(child) for child in self.children)})'
+        else:
+            return self.value
+
+def generate_parse_tree(grammar, sentence):
+    def build_tree(input, symbols):
+        if not input and not symbols:
+            return None
+        if not input or not symbols:
+            return None
+
+        symbol = symbols[0]
+        if symbol in grammar:
+            for production in grammar[symbol]:
+                subtree = build_tree(input, production + symbols[1:])
+                if subtree:
+                    node = Node(symbol)
+                    node.children.append(subtree)
+                    return node
+        elif input[0] == symbol:
+            node = Node(symbol)
+            node.children.append(build_tree(input[1:], symbols[1:]))
+            return node
+        return None
+
+    return build_tree(sentence.split(), ['S'])
+
+# Example usage
+grammar = {
+    'S': [['NP', 'VP']],
+    'NP': [['Det', 'N'], ['N']],
+    'VP': [['V', 'NP']],
+    'Det': ['the', 'a'],
+    'N': ['cat', 'dog'],
+    'V': ['chased', 'ran']
+}
+sentence = "the cat chased the dog"
+parse_tree = generate_parse_tree(grammar, sentence)
+print(parse_tree)

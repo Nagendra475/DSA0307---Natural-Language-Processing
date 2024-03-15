@@ -1,0 +1,15 @@
+def check_agreement(grammar, sentence):
+    # Implement your agreement checking logic based on grammar rules here
+    pass
+
+# Example usage
+grammar = {
+    'S': [['NP', 'VP']],
+    'NP': [['Det', 'N'], ['N']],
+    'VP': [['V', 'NP']],
+    'Det': ['the', 'a'],
+    'N': ['cat', 'dog'],
+    'V': ['chased', 'ran']
+}
+sentence = "the cat chased the dog"
+check_agreement(grammar, sentence.split())

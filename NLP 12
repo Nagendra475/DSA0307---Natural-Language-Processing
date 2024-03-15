@@ -1,0 +1,27 @@
+def earley_parse(grammar, sentence):
+    chart = [[] for _ in range(len(sentence) + 1)]
+    chart[0] = [(rule, 0, 0) for rule in grammar['S']]
+
+    for i in range(len(sentence) + 1):
+        for j in range(len(chart[i])):
+            rule, pos, origin = chart[i][j]
+            if pos < len(rule) and rule[pos] in grammar:
+                for new_rule in grammar[rule[pos]]:
+                    chart[i].append((new_rule, 0, i))
+
+            if pos < len(rule) and rule[pos] == sentence[i-1]:
+                chart[i+1].append((rule, pos + 1, origin))
+
+    return any(rule == ['S'] and pos == len(rule) for rule, pos, origin in chart[len(sentence)])
+
+# Example usage
+grammar = {
+    'S': [['NP', 'VP']],
+    'NP': [['Det', 'N'], ['N']],
+    'VP': [['V', 'NP']],
+    'Det': ['the', 'a'],
+    'N': ['cat', 'dog'],
+    'V': ['chased', 'ran']
+}
+sentence = "the cat chased the dog"
+print(earley_parse(grammar, sentence.split()))

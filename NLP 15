@@ -1,0 +1,19 @@
+import nltk
+
+def parse_probabilistic(grammar, sentence):
+    parser = nltk.ChartParser(grammar)
+    parses = parser.parse(sentence.split())
+    for tree in parses:
+        print(tree)
+
+# Example usage
+grammar = nltk.PCFG.fromstring("""
+    S -> NP VP [1.0]
+    NP -> Det N [0.5] | N [0.5]
+    VP -> V NP [1.0]
+    Det -> 'the' [0.7] | 'a' [0.3]
+    N -> 'cat' [0.6] | 'dog' [0.4]
+    V -> 'chased' [0.8] | 'ran' [0.2]
+""")
+sentence = "the cat chased the dog"
+parse_probabilistic(grammar, sentence)
