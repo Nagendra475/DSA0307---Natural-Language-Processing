@@ -1,0 +1,17 @@
+import re
+
+def parse_fopc(expression):
+    expression = expression.replace('¬', 'not ')
+    expression = expression.replace('∧', ' and ')
+    expression = expression.replace('∨', ' or ')
+    expression = expression.replace('→', 'implies')
+    expression = expression.replace('↔', 'iff')
+
+    expression = re.sub(r'([A-Za-z]+)\(', r'"\1"(', expression)
+    expression = re.sub(r'([A-Za-z]+)', r'"\1"', expression)
+
+    return expression
+
+expression = "∀x (Dog(x) → Animal(x))"
+parsed_expression = parse_fopc(expression)
+print(parsed_expression)
