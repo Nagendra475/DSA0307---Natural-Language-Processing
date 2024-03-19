@@ -1,0 +1,15 @@
+from gensim.models import CoherenceModel
+from gensim.corpora import Dictionary
+from gensim.models.ldamodel import LdaModel
+
+def evaluate_coherence(texts):
+    dictionary = Dictionary(texts)
+    corpus = [dictionary.doc2bow(text) for text in texts]
+    lda_model = LdaModel(corpus, num_topics=5, id2word=dictionary)
+    coherence_model_lda = CoherenceModel(model=lda_model, texts=texts, dictionary=dictionary, coherence='c_v')
+    coherence_lda = coherence_model_lda.get_coherence()
+    return coherence_lda
+
+texts = [['apple', 'orange', 'banana'], ['car', 'bike', 'truck'], ['house', 'apartment', 'villa']]
+coherence_score = evaluate_coherence(texts)
+print("Coherence Score:", coherence_score)

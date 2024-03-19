@@ -1,0 +1,11 @@
+import nltk
+
+def recognize_dialog_acts(dialog):
+    sentences = nltk.sent_tokenize(dialog)
+    for sentence in sentences:
+        tokens = nltk.word_tokenize(sentence)
+        tagged = nltk.pos_tag(tokens)
+        print(tagged)  # Here you can define patterns or rules to recognize dialog acts
+
+dialog = "Person A: How are you? Person B: I'm good. How about you?"
+recognize_dialog_acts(dialog)
