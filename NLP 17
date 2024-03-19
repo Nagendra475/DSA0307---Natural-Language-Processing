@@ -1,0 +1,24 @@
+from nltk.corpus import wordnet
+
+# Example word to explore
+word = "book"
+
+# Retrieve synsets for the word
+synsets = wordnet.synsets(word)
+
+# Print synsets and their definitions
+for synset in synsets:
+    print("Synset:", synset.name())
+    print("Definition:", synset.definition())
+
+# Explore hypernyms (more general concepts) of the first synset
+hypernyms = synsets[0].hypernyms()
+print("\nHypernyms:")
+for hypernym in hypernyms:
+    print(hypernym.name(), "-", hypernym.definition())
+
+# Explore hyponyms (more specific concepts) of the first synset
+hyponyms = synsets[0].hyponyms()
+print("\nHyponyms:")
+for hyponym in hyponyms:
+    print(hyponym.name(), "-", hyponym.definition())
