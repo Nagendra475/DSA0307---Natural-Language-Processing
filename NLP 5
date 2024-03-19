@@ -1,0 +1,11 @@
+import nltk
+from nltk.stem import PorterStemmer
+
+porter = PorterStemmer()
+
+words = ["running", "cats", "dogs", "programming", "knives", "feet", "cities", "ponies"]
+
+stemmed_words = [porter.stem(word) for word in words]
+
+print("Original words:", words)
+print("Stemmed words:", stemmed_words)

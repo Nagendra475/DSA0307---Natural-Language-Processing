@@ -1,0 +1,49 @@
+import nltk
+from nltk.stem import PorterStemmer
+
+class PluralFiniteStateMachine:
+    def __init__(self):
+        self.transitions = {
+            ('', 's'): 's',
+            ('', 'x'): 'es',
+            ('', 'z'): 'es',
+            ('', 'ch'): 'es',
+            ('', 'sh'): 'es',
+            ('', 'y'): 'ies',
+            ('', 'fe'): 'ves',
+            ('', 'f'): 'ves',
+            ('', 'o'): 'es',
+            ('', 'us'): 'i',
+            ('', 'is'): 'es',
+            ('', 'on'): 'a',
+            ('', 'a'): 'ae',
+            ('', 'um'): 'a',
+            ('', 'ex'): 'ices',
+            ('', 'ix'): 'ices',
+            ('', 'ax'): 'axes',
+            ('', 'x'): 'xes',
+            ('', 'ay'): 'ays',
+            ('', 'ey'): 'eys',
+            ('', 'iy'): 'iys',
+            ('', 'oy'): 'oys',
+            ('', 'uy'): 'uys',
+            ('', 'y'): 'ies',
+            ('', 'oth'): 'oths',
+            ('', 'us'): 'uses',
+            ('', 'ss'): 'sses'
+        }
+
+    def pluralize(self, word):
+        state = ''
+        for letter in reversed(word):
+            if (state, letter) in self.transitions:
+                state = self.transitions[(state, letter)] + state
+            else:
+                state = letter + state
+        return state
+
+
+plural_fsm = PluralFiniteStateMachine()
+print(plural_fsm.pluralize('dog'))  # should print 'dogs'
+print(plural_fsm.pluralize('city'))  # should print 'cities'
+print(plural_fsm.pluralize('knife'))  # should print 'knives'
