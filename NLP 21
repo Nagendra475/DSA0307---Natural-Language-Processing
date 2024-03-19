@@ -1,0 +1,37 @@
+import spacy
+
+# Load SpaCy English model
+nlp = spacy.load("en_core_web_sm")
+
+def extract_noun_phrases(sentence):
+    # Process the sentence with SpaCy
+    doc = nlp(sentence)
+
+    # Extract noun phrases and their meanings
+    noun_phrases = []
+    for chunk in doc.noun_chunks:
+        # Get the root of the noun chunk
+        root = chunk.root
+
+        # Extract meanings of the noun chunk
+        meanings = [token.text for token in root.subtree if token.dep_ == "pobj"]
+
+        # Add noun phrase and its meanings to the list
+        noun_phrases.append((chunk.text, meanings))
+
+    return noun_phrases
+
+# Example sentence
+sentence = "The big brown dog chased the cat on the street."
+
+# Extract noun phrases and their meanings
+noun_phrases = extract_noun_phrases(sentence)
+
+# Print extracted noun phrases and their meanings
+for phrase, meanings in noun_phrases:
+    print(f"Noun Phrase: {phrase}")
+    if meanings:
+        print("Meanings:", meanings)
+    else:
+        print("No meanings found.")
+    print()
